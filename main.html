@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Maths Game</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <link rel="stylesheet" type="text/css" href="styling.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="score">
+            Score: <span id="scorevalue">0</span>
+        </div>
+        <div id="correct">Correct</div>
+        <div id="wrong">Try Again</div>
+        <div id="question"></div>
+        <div id="instruction">
+            Click on the correct answer
+        </div>
+        <div id="choices">
+            <div class="box" id="box1"></div>
+            <div class="box" id="box2"></div>
+            <div class="box" id="box3"></div>
+            <div class="box" id="box4"></div>
+        </div>
+        <div id="startreset">
+            Start Game
+        </div>
+        <div id="timerem">Time remaining: <span id="timevalue">60</span> sec</div>
+        <div id="gameover">
+        </div>
+    </div>
+    <script>
+        var flag = false;
+        var score = 0;
+        var i;
+        var counter;
+        var correctAnswer;
+       var j; document.getElementById("startreset").onclick = function() {
+            if (flag == true) {
+                location.reload();
+                flag = false;
+            } else {
+                score = 0;
+                document.getElementById("scorevalue").innerHTML = score;
+                document.getElementById("timerem").style.visibility = "visible";
+                document.getElementById("startreset").innerHTML = "Reset Game";
+                flag = true;
+                i = 60;
+                document.getElementById("gameover").style.display = "none";
+                startCountdown();
+                generateQA();
+            }
+        }
+document.getElementById("box1").onclick = function(){
+    if(flag==true){
+        var val = document.getElementById("box1").innerHTML;
+        if(val == correctAnswer){
+           score += 1; document.getElementById("scorevalue").innerHTML = score; document.getElementById("correct").style.display = "block";
+                document.getElementById("wrong").style.display = "none";
+            setTimeout(function(){
+                document.getElementById("correct").style.display = "none";
+            },1000);
+            generateQA();
+        }
+        else{
+            document.getElementById("correct").style.display = "none";
+                document.getElementById("wrong").style.display = "block";
+            setTimeout(function(){
+                document.getElementById("wrong").style.display = "none";
+            },1000);
+        }
+    }
+   };
+        document.getElementById("box2").onclick = function(){
+    if(flag==true){
+        var val = document.getElementById("box2").innerHTML;
+        if(val == correctAnswer){
+           score += 1; document.getElementById("scorevalue").innerHTML = score; document.getElementById("correct").style.display = "block";
+                document.getElementById("wrong").style.display = "none";
+            setTimeout(function(){
+                document.getElementById("correct").style.display = "none";
+            },1000);
+            generateQA();
+        }
+        else{
+            document.getElementById("correct").style.display = "none";
+                document.getElementById("wrong").style.display = "block";
+            setTimeout(function(){
+                document.getElementById("wrong").style.display = "none";
+            },1000);
+        }
+    }
+   };
+        document.getElementById("box3").onclick = function(){
+    if(flag==true){
+        var val = document.getElementById("box3").innerHTML;
+        if(val == correctAnswer){
+           score += 1; document.getElementById("scorevalue").innerHTML = score; document.getElementById("correct").style.display = "block";
+                document.getElementById("wrong").style.display = "none";
+            setTimeout(function(){
+                document.getElementById("correct").style.display = "none";
+            },1000);
+            generateQA();
+        }
+        else{
+            document.getElementById("correct").style.display = "none";
+                document.getElementById("wrong").style.display = "block";
+            setTimeout(function(){
+                document.getElementById("wrong").style.display = "none";
+            },1000);
+        }
+    }
+   };
+        document.getElementById("box4").onclick = function(){
+    if(flag==true){
+        var val = document.getElementById("box4").innerHTML;
+        if(val == correctAnswer){
+           score += 1; document.getElementById("scorevalue").innerHTML = score; document.getElementById("correct").style.display = "block";
+                document.getElementById("wrong").style.display = "none";
+            setTimeout(function(){
+                document.getElementById("correct").style.display = "none";
+            },1000);
+            generateQA();
+        }
+        else{
+            document.getElementById("correct").style.display = "none";
+                document.getElementById("wrong").style.display = "block";
+            setTimeout(function(){
+                document.getElementById("wrong").style.display = "none";
+            },1000);
+        }
+    }
+   };
+        
+
+        function startCountdown() {
+            counter = setInterval(function() {
+                i -= 1;
+                document.getElementById("timevalue").innerHTML = i;
+                if (i === 0) {
+                    stopCountdown();
+                    document.getElementById("gameover").style.display = "block";
+                    document.getElementById("gameover").innerHTML = "<p>Game Over!</p><p>Your Score is " + score + ".</p>";
+                    document.getElementById("timerem").style.visibility = "hidden";
+                    document.getElementById("correct").style.display = "none";
+                    document.getElementById("wrong").style.display = "none";
+                    document.getElementById("startreset").innerHTML = "Start Game";
+                    flag = false;
+                }
+            }, 1000);
+        }
+
+        function stopCountdown() {
+            clearInterval(counter);
+        }
+
+        function generateQA() {
+            var x = 1 + Math.round(9 * Math.random());
+            var y = 1 + Math.round(9 * Math.random());
+            correctAnswer = x * y;
+            document.getElementById("question").innerHTML = x + "*" + y;
+            var correctPos = 1 + Math.round(3 * Math.random());
+            document.getElementById("box" + correctPos).innerHTML = correctAnswer;
+            var answers = [correctAnswer];
+            for (let i = 1; i <= 4; ++i) {
+                if (i != correctPos) {
+                    var wrongAns;
+                    do {
+                        wrongAns = (1 + Math.round(9 * Math.random())) * (1 + Math.round(9 * Math.random()))
+                    } while (answers.indexOf(wrongAns)>-1);
+                    answers.push(wrongAns);
+                    document.getElementById("box" + i).innerHTML = wrongAns;
+                }
+            }
+        }
+        
+    </script>
+</body></html>
